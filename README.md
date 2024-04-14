@@ -1,6 +1,6 @@
 # 5009_nl2sql
 
-**Welcome, my dear WALL-E z.**
+**Welcome, WALL-E z.**
 
 
 
