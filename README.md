@@ -76,7 +76,9 @@ test_data_output1 = '...'  # 测试集output1路径， 例如'./data/nl2table/ou
 ## 第二阶段：nl2sql inference
 打开[nl2sql_inference.py](nl2sql_inference.py)，修改下面代码的文件路径后即可在HPC上开始推理。
 
-如果你仅想测试你的模型在nl2sql上的效果，不妨将变量`test_data_output1`设置为本仓库下的`/data/nl2sql/prompt2_with_perfect_tables.json`，这是提一个完美的prompt2。之所以说它完美，是因为它仅包含spider测试集中的必要的table。
+如果你仅想测试你的模型在nl2sql上的效果，不妨将变量`test_data_output1`设置为本仓库下的`/data/nl2sql/prompt2_with_perfect_tables.json`，此外再注释掉红框中的代码，添加蓝框中的代码，这是提一个完美的prompt2。之所以说它完美，是因为它仅包含spider测试集中的必要的table。
+
+![](prompt2_with_perfect_tables.png)
 
 ```{python eval=FALSE, include=TRUE}
 model_name = 'deepseek-ai/deepseek-coder-6.7b-instruct'  # 模型名称
