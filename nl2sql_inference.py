@@ -21,7 +21,7 @@ model_path = 'nl2sql/models/deepseek'  # 模型路径
 peft_layer_path = 'nl2sql/experiment8/peft_model'  # nl2sql_finetuning.py文件中peft_output_dir所保存的PEFT层路径
 spider_database_path = '/hpc2hdd/home/tzou317/nl2sql2/spider/test_database'  # Spider测试数据集的数据库文件夹，例如'./spider/test_database'
 spider_test_json_path = '/hpc2hdd/home/tzou317/nl2sql2/spider/test_data/dev.json'  # Spider的测试数据集的.json路径， 例如'./spider/test_data/dev.json'
-test_data_output1 = '/hpc2hdd/home/tzou317/nl2sql2/outputs1.json'  # 阶段1 输出的outputs1的路径，例如'./outputs1_test.json'
+test_data_output1 = '/hpc2hdd/home/tzou317/nl2sql2/zoutao/prompt2_with_perfect_tables.json'  # 阶段1 输出的outputs1的路径，例如'./outputs1_test.json'
 test_data_output2 = '/hpc2hdd/home/tzou317/nl2sql2/pred_test.sql'  # 一个存储预测出的最终.sql文件的路径，例如'./pred_test.sql'
 
 
@@ -32,8 +32,8 @@ tokenizer.padding_side = 'left'
 tokenizer.encode(' ;')
 
 model = AutoModelForCausalLM.from_pretrained(model_path, device_map='auto')  # important
-model = PeftModel.from_pretrained(model, peft_layer_path, torch_type=torch.bfloat16)
-model = model.merge_and_unload()
+# model = PeftModel.from_pretrained(model, peft_layer_path, torch_type=torch.bfloat16)
+# model = model.merge_and_unload()
 print('model merge succeeded')
 model.eval()
 
@@ -44,16 +44,16 @@ def clean_outputs1(outputs1):
     '''
     temp, error_count = [], 0
     for output in outputs1:
-        match = re.findall(r'\[[^\]]*\]', output)
-        if match[-1] != '[entities]':
+        matches = re.findall(r'\"tables\": (\[.*?\])', output)
+        if len(matches) >= 2:
             try:
-                temp.append(eval(match[-1]))
+                temp.append(eval(matches[1]))
             except:  # 若匹配出类似'[mystring]'，则也认为是匹配失败
-                print('Error: no match for:')
+                print('Error1: no match for:')
                 print(output)
                 error_count += 1
         else:
-            print('Error: no match for:')
+            print('Error2: no match for:')
             print(output)
             error_count += 1
     print('total error number: {}'.format(error_count))
@@ -91,13 +91,14 @@ target_db_paths = [f'{spider_database_path}/{db_name}/{db_name}.sqlite' for db_n
 
 with open(test_data_output1, 'r') as f:
     outputs1 = json.load(f)
-outputs1 = clean_outputs1(outputs1)
+# outputs1 = clean_outputs1(outputs1)
 
 outputs2 = []
 for i, output1 in enumerate(outputs1):
     print(f'Inference process: {i}/{len(outputs1)}')
-    prompt2 = get_prompt2(nl_list[i], target_db_paths[i], output1)
-    message = [{'role': 'user', 'content': prompt2.strip()}]
+    # prompt2 = get_prompt2(nl_list[i], target_db_paths[i], output1)
+    # message = [{'role': 'user', 'content': prompt2.strip()}]
+    message = [{'role': 'user', 'content': output1.strip()}]
     input2 = tokenizer.apply_chat_template(message, tokenize=True, return_tensors='pt', add_generation_prompt=True).to(
         model.device)
     responses = model.generate(
