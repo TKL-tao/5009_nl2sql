@@ -63,6 +63,8 @@ peft_output_dir = "..."  # PEFT层的输出路径，例如'./peft_models/nl2sql/
 ## 第一阶段：nl2table inference
 打开[nl2table_inference.py](nl2table_inference.py)，修改下面代码的文件路径后即可在HPC上开始推理。
 
+`test_data_prompt1`可设置为本仓库下的`data/nl2table/prompt1_test.json`
+
 ```{python eval=FALSE, include=TRUE}
 model_name = 'deepseek-ai/deepseek-coder-6.7b-instruct'
 model_path = '...'  # 原始模型所存放的文件夹， 例如 ‘./hf_models/deepseek’
