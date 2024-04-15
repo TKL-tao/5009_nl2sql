@@ -25,6 +25,10 @@
 ## 第一阶段：nl2table finetuning
 打开[nl2table_finetuning.py](nl2table_finetuning.py)，修改下面代码的文件路径后即可在HPC上开始训练。
 
+`'train'`可设置为本仓库下的`/data/nl2table/train_dataset.csv`
+
+`'validation'`可设置为本仓库下的`data/nl2table/val_dataset.csv`
+
 ```{python eval=FALSE, include=TRUE}
 model_name = "deepseek-ai/deepseek-coder-6.7b-instruct"  # huggingface上模型的名称
 model_dir = "..."  # 原始模型所存放的文件夹， 例如 ‘nl2sql/hf_models/deepseek’
@@ -36,6 +40,12 @@ peft_output_dir = "..."  # PEFT层的输出路径，例如'nl2sql/peft_models/nl
 ```
 
 ## 第二阶段：nl2sql finetuning
+打开[nl2sql_finetuning.py](nl2sql_finetuning.py)，修改下面代码的文件路径后即可在HPC上开始训练。
+
+`'train'`可设置为本仓库下的`/data/nl2sql/train_dataset.csv`
+
+`'validation'`可设置为本仓库下的`data/nl2sql/val_dataset.csv`
+
 ```{python eval=FALSE, include=TRUE}
 model_name = "deepseek-ai/deepseek-coder-6.7b-instruct"
 model_dir = "..."  # 原始模型所存放的文件夹， 例如 ‘./hf_models/deepseek’
@@ -48,7 +58,7 @@ peft_output_dir = "..."  # PEFT层的输出路径，例如'./peft_models/nl2sql/
 
 
 # Inference
-测试集的prompt1是准备好了放在`tzou317_5009_nl2sql/data/nl2table/prompt1_test.json`中的。
+测试集的prompt1是准备好了放在本仓库中的`/data/nl2table/prompt1_test.json`中的，它由spider的测试数据集构成。
 
 ## 第一阶段：nl2table inference
 打开[nl2table_inference.py](nl2table_inference.py)，修改下面代码的文件路径后即可在HPC上开始推理。
