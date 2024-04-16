@@ -111,7 +111,7 @@ for i, output1 in enumerate(outputs1):
     )
     output2 = tokenizer.decode(responses[0], skip_special_tokens=True).strip()
 
-    match = re.findall(r"```sql(.*?)(?:```|$)", output2, re.DOTALL)
+    match = re.findall(r"```sql(.*?)(?:```|;)", output2, re.DOTALL)
     if match is None or match == [' and ']:
         print('output2 went wrong.')
         print('output2: ', output2)
