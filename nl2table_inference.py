@@ -45,7 +45,7 @@ for i, prompt in enumerate(prompt1):
     inputs = tokenizer.apply_chat_template(message, tokenize=True, return_tensors='pt', add_generation_prompt=True).to(model.device)
     responses = model.generate(
         inputs,
-        max_new_tokens=250, 
+        max_new_tokens=50, 
         do_sample=False, 
         pad_token_id=tokenizer.eos_token_id,
         eos_token_id=tokenizer.eos_token_id,
