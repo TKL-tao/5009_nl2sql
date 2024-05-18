@@ -1,21 +1,29 @@
 # 5009_nl2sql
 
-**Welcome, WALL-E z.**
+**Welcome to visit our team's NL2SQL (Text2SQL) project**
+
+**We are Tao Zou, Yanting Li, Hang Xu, Yiyun Hong, Daiyan Xing.**
+
+**Please refer to [results](results) to see our experiment results.**
+
+**Please refer to [development_documents](development_documents) to see our work process.**
+
+**The message below shows how to reproduce the our code.**
 
 
 
 # 数据流图
-![](dataflow.png)
+![](imgs/dataflow.png)
 
 ## 第一阶段：
-![](dataflow1.png)
+![](imgs/dataflow1.png)
 
 训练数据集：'共享数据区/tzou317_5009_nl2sql/data/nl2table/train_dataset.csv'
 
 验证数据集：'共享数据区/tzou317_5009_nl2sql/data/nl2table/val_dataset.csv'
 
 ## 第二阶段
-![](dataflow2.png)
+![](imgs/dataflow2.png)
 
 训练数据集：'共享数据区/tzou317_5009_nl2sql/data/nl2sql/train_dataset.csv'
 
@@ -78,7 +86,7 @@ test_data_output1 = '...'  # 测试集output1路径， 例如'./data/nl2table/ou
 
 如果你仅想测试你的模型在nl2sql上的效果，不妨将变量`test_data_output1`设置为本仓库下的`/data/nl2sql/prompt2_with_perfect_tables.json`，此外再注释掉红框中的代码，添加蓝框中的代码，这是一个完美的prompt2。之所以说它完美，是因为它仅包含spider测试集中的必要的table。
 
-![](prompt2_with_perfect_tables.png)
+![](imgs/prompt2_with_perfect_tables.png)
 
 ```{python eval=FALSE, include=TRUE}
 model_name = 'deepseek-ai/deepseek-coder-6.7b-instruct'  # 模型名称
